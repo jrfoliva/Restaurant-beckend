@@ -15,6 +15,8 @@ import { AddItemController } from "./controllers/order/AddItemController";
 import { DeleteItemController } from "./controllers/order/DeleteItemController";
 import { SendOrderController } from "./controllers/order/SendOrderController";
 import { ListOrdersController } from "./controllers/order/ListOrdersController";
+import { DetailsOrderController } from "./controllers/order/DetailsOrderController";
+import { FinishOrderController } from "./controllers/order/FinishOrderController";
 
 const router = Router();
 
@@ -38,9 +40,12 @@ router.post("/order", isAuthenticated, new CreateOrderController().handle);
 router.delete("/order", isAuthenticated, new DeleteOrderController().handle);
 router.put("/order/send", isAuthenticated, new SendOrderController().handle); //Altera draft para false, significa pedido sendo preparado.
 router.get("/orders", isAuthenticated, new ListOrdersController().handle); //Listar os pedidos que estão sendo preparados
+router.get("/order/detail", isAuthenticated, new DetailsOrderController().handle); //Listar detalhes do pedido
+router.put("/order/finish", isAuthenticated, new FinishOrderController().handle); //Finaliza o pedido alterando status : true
 
 // -- ITEMS OF ORDERS
 router.post("/order/add", isAuthenticated, new AddItemController().handle); // Adiciona produto ao pedido
 router.delete("/order/remove", isAuthenticated, new DeleteItemController().handle); //Remover item do pedido
+
 
 export { router };
